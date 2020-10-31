@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+	<title>View Pesawat Tua</title>
+    
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+  
+  <style>
+    #tambah-text{
+      margin: 30px 0px 8px;
+    }
+
+    #table-pesawat{
+      margin: 20px 0px 40px;
+
+    }
+    #text-daftar{
+      margin: 30px 0px 50px;
+
+    }
+
+
+
+  </style>
+
+</head>
+
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <h1 class="text-center" id="text-daftar">Daftar Pesawat Tua</h1>
+
+        <a href="/pesawat/tambah" class="btn btn-primary" id="tambah-text">+ Tambah Pesawat</a>
+
+        <table class="table" id="table-pesawat">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nomor Seri</th>
+                <th scope="col">Jenis</th>
+                <th scope="col">Tipe</th>
+                <th scope="col">Usia</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pesawat, iterStat: ${listPesawat}">
+                    <th scope="row" th:text="${pesawat.idPesawat}"></th>
+                    <td th:text="${pesawat.nomorSeri}"></td>
+                    <td th:text="${pesawat.jenisPesawat}"></td>
+                    <td th:text="${pesawat.tipe.namaTipe}"></td>
+                    <td th:text="${listUsia[iterStat.index]}"></td>
+               </tr>
+            </tbody>
+          </table>
+
+
+
+    </div>
+
+
+</body>
+</html>

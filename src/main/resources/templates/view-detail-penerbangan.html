@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+	<title>View Detail Penerbangan</title>
+    
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+  
+  <style>
+
+  </style>
+
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">  
+        <h1 class="text-center" style="margin: 30px 0px 50px 0px;">Detail Penerbangan</h1>
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <h6>Kode Penerbangan</h6>
+            </div>
+            <div class="col-3">
+              <h6 th:text="${penerbangan.nomorPenerbangan}"></h6>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3">
+              <h6>Kode Bandara Asal</h6>
+            </div>
+            <div class="col-3">
+              <h6 th:text="${penerbangan.kodeBandaraAsal}"></h6>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3">
+              <h6>Kode Bandara Tujuan</h6>
+            </div>
+            <div class="col-3">
+              <h6 th:text="${penerbangan.kodeBandaraTujuan}"></h6>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-3">
+              <h6>Waktu Berangkat</h6>
+            </div>
+            <div class="col-3">
+              <h6 th:text="${penerbangan.waktuBerangkat}"></h6>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-3">
+              <h6>Nomor Seri Pesawat</h6>
+            </div>
+            <div class="col-3">
+                <h6 th:text="${nomorSeri}"></h6>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

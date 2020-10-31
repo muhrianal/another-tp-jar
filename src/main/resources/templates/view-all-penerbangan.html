@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+	<title>View All Penerbangan</title>
+    
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
+    <style>
+        #tambah-text{
+          margin: 30px 0px 8px;
+        }
+    
+        #table-penerbangan{
+          margin: 20px 0px 40px;
+    
+        }
+        #text-daftar{
+          margin: 30px 0px 50px;
+    
+        }
+    
+    
+    
+      </style>
+
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <h1 class="text-center" id="text-daftar">Daftar Penerbangan</h1>
+
+        <a href="/penerbangan/tambah" class="btn btn-primary" id="tambah-text">+ Tambah Penerbangan</a>
+
+        <table class="table" id="table-penerbangan">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Kode Penerbangan</th>
+                <th scope="col">Bandara Asal</th>
+                <th scope="col">Bandara Tujuan</th>
+                <th scope="col">Waktu Berangkat</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="penerbangan: ${listPenerbangan}">
+                    <th scope="row" th:text="${penerbangan.idPenerbangan}"></th>
+                    <td th:text="${penerbangan.nomorPenerbangan}"></td>
+                    <td th:text="${penerbangan.kodeBandaraAsal}"></td>
+                    <td th:text="${penerbangan.kodeBandaraTujuan}"></td>
+                    <td th:text="${penerbangan.waktuBerangkat}"></td>
+                    <td>
+                      <div class="row">
+                        <div class="col">
+                          <a type="button" class="btn btn-outline-primary" th:href="@{/penerbangan/}+${penerbangan.idPenerbangan}">Lihat</a>
+                        </div>
+                        <div class="col">
+                          <a type="button" class="btn btn-outline-secondary" th:href="@{/penerbangan/ubah/}+${penerbangan.idPenerbangan}">Ubah</a>
+                        </div>
+                        <div class="col">
+                          <a type="button" class="btn btn-outline-danger" th:href="@{/penerbangan/hapus/}+${penerbangan.idPenerbangan}">Hapus</a>
+                        </div>
+
+                      </div>
+                    </td>
+               </tr>
+            </tbody>
+          </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+	<title>Filter Pesawat</title>
+    
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
+    <style>
+        #cardPencarian{
+            margin: 40px 0px 90px 0px;
+        }
+
+        #table-pesawat{
+            background-color: #e3f2fd;
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <div class="card w-50 mx-auto" id="cardPencarian">
+            <div class="card-body">
+                <h5 class="card-title text-center">Cari Pesawat</h5>
+                <form class="mx-auto p-3" th:action="@{/pesawat/filter}" method="GET">
+                    <div class="form-group">
+                        <label for="penerbangan">Penerbangan</label>
+                        
+                        <select class="form-control" name="idPenerbangan" id="idPenerbangan">
+                            <option value="" disabled selected>Pilih penerbangan</option>
+                            <span th:each="penerbangan : ${listPenerbangan}">
+                                <option th:value="${penerbangan.idPenerbangan}" th:text="${penerbangan.nomorPenerbangan}"></option>
+                            </span>
+                        </select>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="tipe">Tipe</label>
+                        
+                        <select class="form-control" name="idTipe" id="idTipe">
+                            <option value="" disabled selected>Pilih tipe</option>
+                            <span th:each="tipe : ${listTipe}">
+                                <option th:value="${tipe.idTipe}" th:text="${tipe.namaTipe}"></option>
+                            </span>
+                        </select>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="teknisi">Teknisi</label>
+                        
+                        <select class="form-control" name="idTeknisi" id="idTeknisi">
+                            <option value="" disabled selected>Pilih teknisi</option>
+                            <span th:each="teknisi : ${listTeknisi}">
+                                <option th:value="${teknisi.idTeknisi}" th:text="${teknisi.namaTeknisi}"></option>
+                            </span>
+                        </select>
+                    </div>
+        
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+       
+
+        <table class="table">
+            <thead id="table-pesawat">
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nomor Seri</th>
+                <th scope="col">Jenis</th>
+                <th scope="col">Tipe</th>
+                <th scope="col">Maskapai</th>
+                <th scope="col">Nomor Penerbangan</th>
+                <th scope="col">Teknisi</th>
+              </tr>
+            </thead>
+            <tbody>
+                <div th:each="pesawat : ${listPesawat}">                           
+                    <div th:each="teknisi : ${pesawat.listTeknisi}">
+                        <div th:if="${#lists.size(pesawat.listPenerbangan) == 0}">
+                            <tr>
+                                <th scope="row" th:text="${pesawat.idPesawat}"></th>
+                                <td th:text="${pesawat.nomorSeri}"></td>
+                                <td th:text="${pesawat.jenisPesawat}"></td>
+                                <td th:text="${pesawat.tipe.namaTipe}"></td>
+                                <td th:text="${pesawat.maskapai}"></td>
+                                <td>Belum di-assign penerbangan</td>
+                                <td th:text="${teknisi.namaTeknisi}"></td>
+                            </tr>
+                        </div>
+
+                        <div th:if="${not #lists.isEmpty(pesawat.listPenerbangan)}">
+                            <tr th:each="penerbangan : ${pesawat.listPenerbangan}">
+                                <th scope="row" th:text="${pesawat.idPesawat}"></th>
+                                <td th:text="${pesawat.nomorSeri}"></td>
+                                <td th:text="${pesawat.jenisPesawat}"></td>
+                                <td th:text="${pesawat.tipe.namaTipe}"></td>
+                                <td th:text="${pesawat.maskapai}"></td>
+                                <td th:text="${penerbangan.nomorPenerbangan}"></td>
+                                <td th:text="${teknisi.namaTeknisi}"></td>
+                            </tr>
+                        </div>
+                        
+                    </div>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

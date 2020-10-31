@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+	<title>Ubah Pesawat Sukses</title>
+    
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+  
+  <style>
+
+  </style>
+
+</head>
+<body>
+  <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+      <h2 class="text-center" th:text=" 'Pesawat dengan nomor seri ' + ${pesawat.nomorSeri}" style="margin: 30px 0px 0px 0px;"></h2>
+      <h2 class="text-center" style="margin: 0px 0px 70px 0px;">berhasil diubah.</h2>
+
+      <div class="text-center">
+        <a  th:href="@{/pesawat}">Kembali ke Daftar Pesawat</a>
+
+      </div>
+      
+    </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+	<title>View Pesawat</title>
+    
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+  
+  <style>
+
+  </style>
+
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <h1 class="text-center" style="margin: 30px 0px 70px 0px;">Detail Pesawat</h1>
+          <div class="card w-50 mx-auto" style="margin: 0px 0px 70px 0px;">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <h6>Nomor Seri</h6>
+                    </div>
+                    <div class="col-6">
+                      <h6 th:text="': ' + ${pesawat.nomorSeri}"></h6>
+                    </div>
+                </div>
+        
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <h6>Jenis Pesawat</h6>
+                    </div>
+                    <div class="col-6">
+                        <h6 th:if="${pesawat.jenisPesawat == '1'}">: Komersial</h6>
+                        <h6 th:if="${pesawat.jenisPesawat == '2'}">: Militer</h6>
+                    </div>
+                </div>
+        
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <h6>Maskapai</h6>
+                    </div>
+                    <div class="col-6">
+                      <h6 th:text="': ' + ${pesawat.maskapai}"></h6>
+                    </div>
+                </div>
+        
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <h6>Tanggal Dibuat</h6>
+                    </div>
+                    <div class="col-6">
+                      <h6 th:text="': ' + ${pesawat.tanggalDibuat}"></h6>
+                    </div>
+                </div>
+        
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <h6>Tempat Dibuat</h6>
+                    </div>
+                    <div class="col-6">
+                      <h6 th:text="': ' + ${pesawat.tempatDibuat}"></h6>
+                    </div>
+                </div>
+              
+
+            </div>
+          </div>
+
+        
+        
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+                <h4 class="text-center" style="margin: 0px 0px 94px 0px;">Daftar Teknisi Pesawat</h4>
+                <table class="table" id="table-pesawat">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Nomor Telepon</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="teknisi: ${listTeknisi}">
+                            <th scope="row" th:text="${teknisi.idTeknisi}"></th>
+                            <td th:text="${teknisi.namaTeknisi}"></td>
+                            <td th:text="${teknisi.nomorTelepon}"></td>
+                       </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-7">
+                <h4 class="text-center">Daftar Penerbangan</h4>
+                
+                <form th:action="@{'/pesawat/' + ${pesawat.idPesawat} + '/tambah-penerbangan'}" method="POST">
+                    <input type="hidden" th:field="${pesawat.idPesawat}">
+                    <h5 class="text-right">Tambah Penerbangan     </h5>
+                    <div class="row">
+                        <div class="col-8"></div>
+                        <div class="col-2 text-right">
+                            <div class="form-group">                                
+                                <select class="form-control" th:field="${pesawat.listPenerbangan}" name="allAvailablePenerbangan" id="allAvailablePenerbangan">
+                                    <option value="" disabled selected>Pilih penerbangan</option>
+                                    <div th:each="penerbangan, iterationStatus : ${allAvailablePenerbangan}">
+                                        <option th:value="${penerbangan.idPenerbangan}" th:text="${penerbangan.nomorPenerbangan}"></option>
+                                    </div>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col text-right">
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table" id="table-pesawat">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Kode Penerbangan</th>
+                        <th scope="col">Bandara Asal</th>
+                        <th scope="col">Bandara Tujuan</th>
+                        <th scope="col">Waktu Berangkat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="penerbangan: ${listPenerbangan}">
+                            <th scope="row" th:text="${penerbangan.idPenerbangan}"></th>
+                            <td th:text="${penerbangan.nomorPenerbangan}"></td>
+                            <td th:text="${penerbangan.kodeBandaraAsal}"></td>
+                            <td th:text="${penerbangan.kodeBandaraTujuan}"></td>
+                            <td th:text="${penerbangan.waktuBerangkat}"></td>
+                       </tr>
+                    </tbody>
+                  </table>
+
+                  <div>
+                      <h6 class="text-center" th:text="${response}"></h6>
+                  </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>    
