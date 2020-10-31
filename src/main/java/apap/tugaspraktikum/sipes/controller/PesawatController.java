@@ -242,13 +242,5 @@ public class PesawatController {
 	}
 	
 	
-//	@RequestMapping("/bjir")
-//	public String bjir() {
-//		List<PesawatModel> dapet = pesawatService.getPesawatTeknisiByIdTeknisi(1L);
-//		System.out.println(dapet);
-//		
-//		return "hmm";
-//	}
-	
 
 }
